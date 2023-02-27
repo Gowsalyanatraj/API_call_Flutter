@@ -24,10 +24,12 @@ class _HomeScreenState extends State<HomeScreen> {
           itemCount: users.length,
           itemBuilder: (context, index) {
             final user = users[index];
-            final email = user['email'];
-            return ListTile(
-              title: Text(email),
-            );
+      
+            for (var i = 0; i < user['results'].length; i++) {
+               ListTile(
+                title: Text(user['results'][i]['email'].toString()),
+              );
+            }
           }),
       floatingActionButton: FloatingActionButton(onPressed: fetchUsers),
     );
@@ -41,6 +43,13 @@ void fetchUsers() async {
   final response = await http.get(uri);
   final body = response.body;
   final json = jsonDecode(body);
+  // print(json['results']);
+  // print(json['results'].length);
+  //  print(json['results'].length);
+  for (var i = 0; i < json['results'].length; i++) {
+    print(json['results'][i]['email'].toString());
+  }
+  // json variable have data
   setState(() {
     var users = json['results'];
   });
