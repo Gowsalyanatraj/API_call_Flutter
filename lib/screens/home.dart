@@ -1,4 +1,4 @@
-// ignore_for_file: unused_local_variable
+// ignore_for_file: unused_local_variable, prefer_typing_uninitialized_variables
 
 import 'dart:convert';
 
@@ -26,9 +26,14 @@ class _HomeScreenState extends State<HomeScreen> {
             final user = users[index];
       
             for (var i = 0; i < user['results'].length; i++) {
-               ListTile(
-                title: Text(user['results'][i]['email'].toString()),
-              );
+              print(user['results'][i]['email'].toString());
+              Text('email',
+              style: TextStyle(
+                color: Colors.black
+              ),);
+              //  ListTile(
+              //   title: (user['results'][i]['email'].toString()),
+              // );
             }
           }),
       floatingActionButton: FloatingActionButton(onPressed: fetchUsers),
@@ -36,24 +41,32 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 }
 
-void fetchUsers() async {
-  print('fetchUsers called');
-  const url = 'https://randomuser.me/api/?results=10';
-  final uri = Uri.parse(url);
-  final response = await http.get(uri);
-  final body = response.body;
-  final json = jsonDecode(body);
-  // print(json['results']);
-  // print(json['results'].length);
-  //  print(json['results'].length);
-  for (var i = 0; i < json['results'].length; i++) {
-    print(json['results'][i]['email'].toString());
+Future fetchUsers() async {
+ // print('fetchUsers called');
+  const requesturl = 'https://randomuser.me/api/?results=10';
+  //final uri = Uri.parse(url);
+  final response = await http.get(Uri.parse(requesturl));
+  if(response.statusCode == 200){
+    var email;
+    return email.fromJson(jsonDecode(response.body));
+  }else{
+    throw Exception("Error loading request URL info");
   }
-  // json variable have data
-  setState(() {
-    var users = json['results'];
-  });
-  print('fetchUsers completed');
+
+  
+  // final body = response.body;
+  // final json = jsonDecode(body);
+  // // print(json['results']);
+  // // print(json['results'].length);
+  // //  print(json['results'].length);
+  // for (var i = 0; i < json['results'].length; i++) {
+  //   print(json['results'][i]['email'].toString());
+  // }
+  // // json variable have date
+  // setState(() {
+  //   var users = json['results'];
+  // });
+  // print('fetchUsers completed');
 }
 
-void setState(Null Function() param0) {}
+//void setState(Null Function() param0) {}
