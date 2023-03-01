@@ -7,6 +7,13 @@ import 'package:http/http.dart' as http;
 
 import '../Widgets/container.dart';
 
+
+// Kindly Refer this Course https://www.udemy.com/course/learn-flutter-dart-to-build-ios-android-apps/
+// it may help you for the better understanding how the widgets and state management are working 
+// and also basic dart programming language is included in this course kindly watch and redo at your own style for both programmatic and framework level 
+// approach.
+// if you want to learn riverpod there is a utube tutorial : https://www.youtube.com/watch?v=pwflXIA-6YQ&t=4439s .. Riverpod is Explained in Simple Way.
+// (: 
 Future getUserList() async {
   try {
     final response =
